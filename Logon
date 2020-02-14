@@ -1,0 +1,7 @@
+Import-Module activedirectory
+$user = $env:USERNAME
+$comp = $env:COMPUTERNAME
+$data = Get-Date
+$str="User: " + $user + ". Last logon: " + $data
+#Get-ADComputer -Identity $comp -Properties *
+Set-ADComputer $comp -Replace @{description = $str}
