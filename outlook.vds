@@ -1,0 +1,173 @@
+On Error Resume Next
+	Set objSysInfo = CreateObject("ADSystemInfo")
+	strUser = objSysInfo.UserName
+	Set objUser = GetObject("LDAP://" & strUser)
+	
+	strEmail = objuser.mail
+	
+	if (strEmail > "") then
+		strZpov = "С Уважением,"
+		strTAB = ""
+		strName = objUser.FullName
+		strTitle = objUser.Title
+		strDepartment = ""
+		strCompany = "АО «Company»"
+		strDob = ""		
+		
+		strPhone = objUser.telephoneNumber
+		if strPhone <> "" then 
+			strDob = "  Доб. "
+		end if
+		
+		strgorod = objuser.l
+		strstreet = objuser.streetAddress
+		strfax = objuser.facsimileTelephoneNumber
+		strIntPhone = objuser.ipPhone
+		strPath = objUser.Parent
+		
+		Dim MyStr, MyArray, a
+		MyStr = strPath
+		MyArray = Split(MyStr , "OU=")
+		a = InStr(1,MyArray(1),"группа",vbTextCompare)
+		if a = 1 then strDepartment = MyArray(2) else strDepartment = MyArray(1)
+		strDepartment = Replace(strDepartment,",","")
+		end if
+		Set objWord = CreateObject("Word.Application")
+		Set objDoc = objWord.Documents.Add()
+		Set objSelection = objWord.Selection
+		Set objEmailOptions = objWord.EmailOptions
+		Set objSignatureObject = objEmailOptions.EmailSignature
+		Set objSignatureEntries = objSignatureObject.EmailSignatureEntries
+		objSelection.ParagraphFormat.Space1
+		
+		objSelection.TypeText strTAB
+		objSelection.TypeText CHR(11)
+		objSelection.TypeText strTAB
+		objSelection.TypeText CHR(11)
+		objSelection.TypeText strTAB
+		objSelection.TypeText CHR(11)  
+		objSelection.TypeText strZpov
+		objSelection.TypeText CHR(11)
+		objSelection.TypeText strName
+		objSelection.TypeText CHR(11)
+		objSelection.TypeText strTitle
+		objSelection.TypeText CHR(11)
+		objSelection.TypeText strDepartment
+		objSelection.TypeText CHR(11)
+		objSelection.TypeText strCompany
+		objSelection.TypeText CHR(11)
+		objSelection.TypeText "Тел:  +7 (495) 2522435" & strDob & strPhone
+		objSelection.TypeText CHR(11)
+		objSelection.TypeText "e-mail: "
+		objselection.font.color = RGB(0, 0, 255)
+		objSelection.Hyperlinks.Add objSelection.range, "mailto:" & strEmail, , , strEmail	
+		objSelection.TypeText CHR(11)
+		objSelection.Hyperlinks.Add objSelection.Range,  "Site"
+		objSelection.TypeText CHR(11)
+		
+		
+		Set objSelection = objDoc.Range()
+		
+		objSignatureEntries.Add "Name", objSelection
+		
+		if objSignatureObject.NewMessageSignature = "(нет)" or objSignatureObject.NewMessageSignature = ""  then
+			objSignatureObject.NewMessageSignature = "Подпись"
+		end if
+		
+		if objSignatureObject.ReplyMessageSignature = "(нет)" or objSignatureObject.ReplyMessageSignature = "" then
+			objSignatureObject.ReplyMessageSignature = "Корпоративная подпись"
+		end if
+		if objSignatureObject.ReplyMessageSignature = "Корпоративная подпись" or objSignatureObject.ReplyMessageSignature = "" then
+			objSignatureObject.ReplyMessageSignature = "Корпоративная подпись"
+		end if
+		if objSignatureObject.NewMessageSignature = "Корпоративная подпись" or objSignatureObject.NewMessageSignature = ""  then
+			objSignatureObject.NewMessageSignature = "Корпоративная подпись"
+		end if
+		objDoc.Saved = True
+		objWord.QuitOn Error Resume Next
+	Set objSysInfo = CreateObject("ADSystemInfo")
+	strUser = objSysInfo.UserName
+	Set objUser = GetObject("LDAP://" & strUser)
+	
+	strEmail = objuser.mail
+	
+	if (strEmail > "") then
+		strZpov = "С Уважением,"
+		strTAB = ""
+		strName = objUser.FullName
+		strTitle = objUser.Title
+		strDepartment = ""
+		strCompany = "АО «Company»"
+		strDob = ""		
+		
+		strPhone = objUser.telephoneNumber
+		if strPhone <> "" then 
+			strDob = "  Доб. "
+		end if
+		
+		strgorod = objuser.l
+		strstreet = objuser.streetAddress
+		strfax = objuser.facsimileTelephoneNumber
+		strIntPhone = objuser.ipPhone
+		strPath = objUser.Parent
+		
+		Dim MyStr, MyArray, a
+		MyStr = strPath
+		MyArray = Split(MyStr , "OU=")
+		a = InStr(1,MyArray(1),"группа",vbTextCompare)
+		if a = 1 then strDepartment = MyArray(2) else strDepartment = MyArray(1)
+		strDepartment = Replace(strDepartment,",","")
+		end if
+		Set objWord = CreateObject("Word.Application")
+		Set objDoc = objWord.Documents.Add()
+		Set objSelection = objWord.Selection
+		Set objEmailOptions = objWord.EmailOptions
+		Set objSignatureObject = objEmailOptions.EmailSignature
+		Set objSignatureEntries = objSignatureObject.EmailSignatureEntries
+		objSelection.ParagraphFormat.Space1
+		
+		objSelection.TypeText strTAB
+		objSelection.TypeText CHR(11)
+		objSelection.TypeText strTAB
+		objSelection.TypeText CHR(11)
+		objSelection.TypeText strTAB
+		objSelection.TypeText CHR(11)  
+		objSelection.TypeText strZpov
+		objSelection.TypeText CHR(11)
+		objSelection.TypeText strName
+		objSelection.TypeText CHR(11)
+		objSelection.TypeText strTitle
+		objSelection.TypeText CHR(11)
+		objSelection.TypeText strDepartment
+		objSelection.TypeText CHR(11)
+		objSelection.TypeText strCompany
+		objSelection.TypeText CHR(11)
+		objSelection.TypeText "Тел:  +7 (495) 2522435" & strDob & strPhone
+		objSelection.TypeText CHR(11)
+		objSelection.TypeText "e-mail: "
+		objselection.font.color = RGB(0, 0, 255)
+		objSelection.Hyperlinks.Add objSelection.range, "mailto:" & strEmail, , , strEmail	
+		objSelection.TypeText CHR(11)
+		objSelection.Hyperlinks.Add objSelection.Range,  "Cайт"
+		objSelection.TypeText CHR(11)
+		
+		
+		Set objSelection = objDoc.Range()
+		
+		objSignatureEntries.Add "Корпоративная подпись", objSelection
+		
+		if objSignatureObject.NewMessageSignature = "(нет)" or objSignatureObject.NewMessageSignature = ""  then
+			objSignatureObject.NewMessageSignature = "Корпоративная подпись"
+		end if
+		
+		if objSignatureObject.ReplyMessageSignature = "(нет)" or objSignatureObject.ReplyMessageSignature = "" then
+			objSignatureObject.ReplyMessageSignature = "Корпоративная подпись"
+		end if
+		if objSignatureObject.ReplyMessageSignature = "Корпоративная подпись" or objSignatureObject.ReplyMessageSignature = "" then
+			objSignatureObject.ReplyMessageSignature = "Корпоративная подпись"
+		end if
+		if objSignatureObject.NewMessageSignature = "Корпоративная подпись" or objSignatureObject.NewMessageSignature = ""  then
+			objSignatureObject.NewMessageSignature = "Корпоративная подпись"
+		end if
+		objDoc.Saved = True
+		objWord.Quit
