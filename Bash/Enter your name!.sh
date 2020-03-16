@@ -13,14 +13,14 @@ read -r name
         echo "bye";exit
         elif [[ $age -le 16 ]]
         then
-             g="child"
+             group="child"
              echo "$name, your group is $g"
         elif [[ ($age -ge 17) && ($age -le 25) ]]
         then
-             g="youth"
+             group="youth"
              echo "$name, your group is $g"
          else
-                      g="aduld"
+                      group="aduld"
              echo "$name, your group is $g"
         fi
     fi
