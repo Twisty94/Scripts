@@ -7,7 +7,7 @@ select task in ADDUSER COPYUSER XENDEV
 do 
 	case $task in 
 	ADDUSER)
-	read -p " Enter your username " user
+	read -p " Enter your username: " user
 	echo " Specify the required group "
 	awk -F: '{print $1;}' /etc/group | sort
 	read -p " Enter the required additional group: " group
@@ -19,12 +19,12 @@ do
 	COPYUSER)
 	echo " List of users "
 	awk -F: '{ print $1 }' /etc/passwd | sort
-	read -p " Enter a new username " user
+	read -p " Enter a new username: " user
 	read -p " Enter which username to copy " copyuser
 	cp -r /home/$copyuser/* /home/$user/
 	[[ $? == 0 ]] && echo " The content is copied " && exit 0;;
 	XENDEV)
-	read -p " Enter a new username " user
+	read -p " Enter a new username: " user
 	echo " server_name $user.dev.svyaznoy.ru;
 
         if ( $host = '$user.dev.svyaznoy.ru'){
