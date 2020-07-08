@@ -2,7 +2,7 @@
 
 echo "Hello, CREATED A USER!!"
 
-select task in ADDUSER COPYUSER 
+select task in ADDUSER COPYUSER XENDEV 
 
 do 
 	case $task in 
@@ -23,5 +23,13 @@ do
 	read -p " Enter which username to copy " copyuser
 	cp -r /home/$copyuser/* /home/$user/
 	[[ $? == 0 ]] && echo " The content is copied " && exit 0;;
+	XENDEV)
+	read -p " Enter a new username " user
+	echo " server_name $user.dev.svyaznoy.ru;
+
+        if ( $host = '$user.dev.svyaznoy.ru'){
+                set $doc_root '/home/$user/sv-repo/www';
+        } " >> /etc/nginx/vhost/sv_developers
+	[[ $? == 0 ]] && echo " The completed " && exit 0;;
 	esac
 done
