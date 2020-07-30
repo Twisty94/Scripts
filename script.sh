@@ -12,7 +12,7 @@ do
 	awk -F: '{print $1;}' /etc/group | sort
 	read -p " Enter the required additional group: " group
 	useradd $user -m -G $group 
-	mkdir -p /home/$user/.ssh/5
+	mkdir -p /home/$user/.ssh/
 	read -p " Specify the public RSA keys " keys
 	echo "$keys" > /home/$user/.ssh/authorized_keys
 	[[ $? == 0 ]] && echo " The User is created " && exit 0;;
